@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio</title>
+  <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"
+   rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>出生年份</th>
+          <th>离开年份</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="input-group col-md-6 col-md-offset-3">
+      <input type ="text" class="form-control"
+      placeholder="输入发明家名字搜索..."id="search-keyword"/>
+      <span class="input-group-btn">
+        <button class="btn btn-default" id="search-btn">搜索</button>
+          </span>
+    </div>
+  </div>
+  <p>
+    <em>
+      Post:have a look at the JavaScript Console.
+    </em>
+  </p>
+<script>
+// 常量
+// ＪＳＯＮ数组
+// 数据源
+const inventors = [
+  { first: 'Alert', last: 'Einstein', year: 1879, passed: 1955},
+  { first : 'Isaac', last: 'Newton', year: 1643, passed: 1727},
+  { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642},
+  { first: 'Marie', last: 'Curie', year: 1867, passed: 1934},
+  { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630},
+  { first: 'Nicolaus', last: 'Copernicus',year: 1473,passed: 1543},
+  { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968},
+  { first: 'Hanna', last: 'Hammarstrom', year: 1829, passed: 1909}
+];
+// es6       arrar  新方法  map
+// 遍历我们的数组，  并且返回新的数组
+document.querySelector('.table>tbody').innerHTML = inventors.map(inventor=>{
+  console.log(inventor);
+  const html=`
+  <tr>
+       <td>${inventor.first} ${inventor.last}</td>
+        <td>${inventor.year}</td>
+        <td>${inventor.passed}</td>
+   </tr>
+  `
+  return html;
+}).join('');
+
+
+// 过滤
+// setTimeout(() => {
+// document.querySelector('.table>tbody').innerHTML = inventors.filter(inventor => {
+//   // 如果你要发明家留下，就返回一个true   否则返回  false
+//     return inventor.year >=1500 && inventor.passed<1700;
+// }).map(inventor => {
+//   return `
+//   <tr>
+//        <td>${inventor.first} ${inventor.last}</td>
+//        <td>${inventor.year}</td>
+//        <td>${inventor.passed}</td>
+//   </tr>
+//   `
+// }).join('')
+// },10000)
+// 选择btn input 两个元素
+const searchBtn = document.getElementById('search-btn');
+const searchInput = document.getElementById('search-keyword');
+
+
+// 监听 btn的点击事件
+searchBtn.addEventListener('click', () => {
+  // 获取输入框的值
+  const keyword = searchInput.value;
+  document.querySelector('.table>tbody').innerHTML = inventors.filter(inventor => {
+    const inventorName = inventor.first + inventor.last;
+    return inventorName.indexOf(keyword) > -1;
+  }).map(inventor => {
+    return `
+      <tr>
+      <td>${inventor.first} ${inventor.last}</td>
+        <td>${inventor.year}</td>
+        <td>${inventor.passed}</td>
+      </tr>
+    `;
+  }).join('')
+})
+
+
+
+// filter map
+
+// 更新table
+
+// for(var i = 0; i < inventors.length; i++) {
+//   const inventor = inventors[i];
+//   const name = 'My name is' + inventor.first + ' ' + inventor.last;
+//   console.log(name);
+// }
+// const htmlArr = [];
+// // of 有 数组有什么都拿出来走一遍
+// for( const inventor of inventors) {
+//   // console.log(inventor);
+//   const invertorsHtml = `
+//     <tr>
+//       <td>${inventor.first} ${inventor.last}</td>
+//       <td>${inventor.year}</td>
+//       <td>${inventor.passed}</td>
+//     </tr>
+//   `;
+//   htmlArr.push(invertorsHtml);
+// }
+// // console.log(htmlArr);
+
+
+// // console.log(invertorsHtml);
+// // DHTML innerHTML API
+// // 定时器
+// // ajax
+// // 事件   前端交互
+// // web 1.0 -> web 2.0
+//  document.querySelector('.table>tbody').innerHTML =
+//  htmlArr.join('');
+
+
+//  //选取15世纪的科学家
+//  var inventorsFifth=[];
+//  inventors.forEach(function(inventor) {
+//    console.log(inventor);
+//    if(inventor.year >=1500 && inventor.passed <1700){
+//      inventorsFifth.push(inventor);
+//    }
+//  })
+//  console.log(inventorsFifth);
+//  const fifthHtml = [];
+//  for(const item of inventorsFifth) {
+//    console.log(item);
+//    fifthHtml.push(
+//      `
+//      <tr>
+//       <td>${item.first} ${item.last}</td>
+//       <td>${item.year}</td>
+//       <td>${item.passed}</td>
+//     </tr>
+//      `
+//    )
+//  }
+//  console.log(fifthHtml);
+//  document.querySelector('.table>tbody').innerHTML = fifthHtml.join('');
+</script>
+</body>
+</html>
